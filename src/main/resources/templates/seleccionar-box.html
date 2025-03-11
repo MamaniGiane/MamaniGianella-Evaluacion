@@ -12,20 +12,34 @@
   <div class="container mt-4">
     <h2>Seleccionar Box y Automóvil</h2>
     <form action="/ocupar-box" method="post">
-      <label>Seleccionar Box:</label>
-      <select name="boxId" class="form-control" required>
-        <option th:each="box : ${boxes}" th:value="${box.id}" th:text="${box.id} + ' - Zona ' + ${box.zona}"></option>
-      </select>
+      <input type="hidden" name="boxId" id="boxId" th:value="${id}" required>
+
       <label>Seleccionar Automóvil:</label>
-      <select name="autoId" class="form-control" required>
-        <option th:each="auto : ${autos}" th:value="${auto.id}"
-          th:text="${auto.patente} + ' - ' + ${auto.marca} + ' ' + ${auto.modelo}"></option>
-      </select>
+      <div class="row">
+        <div class="col-md-4" th:each="auto : ${autos}">
+          <div class="card" style="cursor: pointer;" th:attr="onclick=|seleccionarAuto(this, ${auto.id})|">
+            <div class="card-body">
+              <h5 class="card-title" th:text="${auto.patente}"></h5>
+              <p class="card-text" th:text="${auto.marca} + ' ' + ${auto.modelo}"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" name="autoId" id="autoId" required>
       <label>Horas de Uso:</label>
       <input type="number" name="horas" class="form-control" min="1" required>
       <button type="submit" class="btn btn-success mt-3">Confirmar</button>
     </form>
   </div>
+  <script>
+    function seleccionarAuto(element, autoId) {
+      document.getElementById("autoId").value = autoId;
+      console.log(autoId);
+      let cards = document.querySelectorAll(".card");
+      cards.forEach(card => card.classList.remove("border-primary"));
+      element.classList.add("border-primary");
+    }
+  </script>
 </body>
 
 </html>

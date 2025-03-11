@@ -14,19 +14,21 @@
     <h2>Boxes Disponibles</h2>
     <a href="/nuevo-auto" class="btn btn-primary mb-3">Agregar Automóvil</a>
     <a href="/nuevo-box" class="btn btn-secondary mb-3">Agregar Box</a>
+    <a href="/listar-autos" class="btn btn-secondary mb-3">Lista Automoviles</a>
     <div class="row">
       <div class="col-md-4" th:each="box : ${boxes}">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Box ID: <span th:text="${box.id}"></span></h5>
             <p class="card-text">Zona: <span th:text="${box.zona}"></span></p>
-            <p class="card-text">Disponibilidad: <span th:text="${box.disponibilidad}"></span></p>
-            <a href="/seleccionar-box" class="btn btn-primary">Seleccionar</a>
+            <p class="card-text">Disponibilidad: <span
+                th:text="${box.disponibilidad ? 'Disponible' : 'No disponible'}"></span></p>
+            <a th:href="@{/seleccionar-box/{id}(id=${box.id})}" class="btn btn-primary">Seleccionar</a>
           </div>
         </div>
       </div>
     </div>
   </div>
-</body>seleccionar-box.html
+</body>
 
 </html>

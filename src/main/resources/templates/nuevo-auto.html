@@ -10,21 +10,27 @@
 
 <body>
   <div class="container mt-4">
-    <h2>Agregar Nuevo Automóvil</h2>
-    <form action="/guardar-auto" method="post">
-      <label>Patente:</label>
-      <input type="text" name="patente" class="form-control" required>
+    <h2 th:text="${automovil==null ? 'Agregar Nuevo Automóvil' : 'Editar Automovil'}"></h2>
+    <form action="/guardar-auto" th:object="${automovil}" method="post">
+      <div th:if="${automovil.id==null}">
+        <label>Patente:</label>
+        <input type="text" name="patente" th:field="*{patente}" class="form-control" required>
+      </div>
+      <div th:if="${automovil.id!=null}">
+        <label>Patente:</label>
+        <input type="text" name="patente" th:field="*{patente}" class="form-control" required readonly>
+      </div>
       <label>Marca:</label>
-      <input type="text" name="marca" class="form-control" required>
+      <input type="text" name="marca" th:field="*{marca}" class="form-control" required>
       <label>Modelo:</label>
-      <input type="text" name="modelo" class="form-control" required>
+      <input type="text" name="modelo" th:field="*{modelo}" class="form-control" required>
       <label>Color:</label>
-      <input type="text" name="color" class="form-control" required>
+      <input type="text" name="color" th:field="*{color}" class="form-control" required>
       <label>DNI Dueño:</label>
-      <input type="text" name="duenio" class="form-control" required>
-      <label>Estado:</label>
-      <input type="text" name="estado" class="form-control" required>
-      <button type="submit" class="btn btn-success mt-3">Guardar</button>
+      <input type="number" name="duenio" th:field="*{duenio}" class="form-control" required>
+      <input type="hidden" name="id" th:field="*{id}" required>
+      <input type="hidden" name="estado" th:field="*{estado}" class="form-control" required>
+      <button type="submit" class="btn btn-success mt-3" th:text="${automovil==null ? 'Agregar' : 'Editar'}"></button>
     </form>
   </div>
 </body>

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,15 +30,16 @@ public class EstacionamientoController {
     return "index";
   }
 
-  @GetMapping("/seleccionar-box")
-  public String seleccionarBox(Model model) {
-    model.addAttribute("boxes", boxestacionamientoService.obtenerBoxesDisponibles());
+  @GetMapping("/seleccionar-box/{id}")
+  public String seleccionarBox(Model model, @PathVariable(name = "id") Long id) {
+    model.addAttribute("box", id);
     model.addAttribute("autos", automovilService.mostrarAutomoviles());
     return "seleccionar-box";
   }
 
   @PostMapping("/ocupar-box")
-  public String ocuparBox(@RequestParam Long boxId, @RequestParam Long autoId, @RequestParam int horas, Model model) {
+  public String ocuparBox(@RequestParam Long boxId, @RequestParam Long autoId, @RequestParam int horas,
+      Model model) {
     usoBoxService.ocuparBox(boxId, autoId, horas);
     BoxEstacionamiento box = boxestacionamientoService.obtenerBoxPorId(boxId);
     double costo = usoBoxService.calcularCosto(box.getZona(), horas);
@@ -64,9 +66,27 @@ public class EstacionamientoController {
     return "nuevo-box";
   }
 
+  @GetMapping("/editar-auto/{id}")
+  public String editarBox(Model model, @PathVariable(name = "id") Long id) {
+    model.addAttribute("automovil", automovilService.obtenerAutomovilPorId(id));
+    return "nuevo-auto";
+  }
+
+  @GetMapping("/eliminar-auto/{id}")
+  public String eliminarAuto(Model model, @PathVariable(name = "id") Long id) {
+    automovilService.eliminarAutomovil(id);
+    return "redirect:/listar-autos";
+  }
+
   @PostMapping("/guardar-box")
   public String guardarBox(@ModelAttribute BoxEstacionamiento box) {
     boxestacionamientoService.guardarBoxEstacionamiento(box);
     return "redirect:/";
+  }
+
+  @GetMapping("/listar-autos")
+  public String listarAutos(Model model) {
+    model.addAttribute("autos", automovilService.obtenerAutomoviles());
+    return "listar-autos";
   }
 }

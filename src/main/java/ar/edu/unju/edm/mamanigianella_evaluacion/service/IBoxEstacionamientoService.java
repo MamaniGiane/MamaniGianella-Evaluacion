@@ -7,7 +7,9 @@ import ar.edu.unju.edm.mamanigianella_evaluacion.model.BoxEstacionamiento;
 public interface IBoxEstacionamientoService {
   public void guardarBoxEstacionamiento(BoxEstacionamiento boxEstacionamiento);
 
-  public void eliminarBoxEstacionamiento();
+  public void ocuparBoxEstacionamiento(Long id);
+
+  public void desocuparBoxEstacionamiento(Long id);
 
   public BoxEstacionamiento obtenerBoxPorId(Long id);
 
@@ -15,5 +17,5 @@ public interface IBoxEstacionamientoService {
 
   public List<BoxEstacionamiento> obtenerBoxesDisponibles();
 
-  public void mostrarBoxEstacionamiento();
+  public List<BoxEstacionamiento> mostrarBoxEstacionamiento();
 }
