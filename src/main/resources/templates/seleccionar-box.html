@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seleccionar Box</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container mt-4">
+    <h2>Seleccionar Box y Automóvil</h2>
+    <form action="/ocupar-box" method="post">
+      <label>Seleccionar Box:</label>
+      <select name="boxId" class="form-control" required>
+        <option th:each="box : ${boxes}" th:value="${box.id}" th:text="${box.id} + ' - Zona ' + ${box.zona}"></option>
+      </select>
+      <label>Seleccionar Automóvil:</label>
+      <select name="autoId" class="form-control" required>
+        <option th:each="auto : ${autos}" th:value="${auto.id}"
+          th:text="${auto.patente} + ' - ' + ${auto.marca} + ' ' + ${auto.modelo}"></option>
+      </select>
+      <label>Horas de Uso:</label>
+      <input type="number" name="horas" class="form-control" min="1" required>
+      <button type="submit" class="btn btn-success mt-3">Confirmar</button>
+    </form>
+  </div>
+</body>
+
+</html>
