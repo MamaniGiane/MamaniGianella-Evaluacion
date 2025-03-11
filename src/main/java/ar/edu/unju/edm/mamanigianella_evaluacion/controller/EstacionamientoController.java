@@ -33,7 +33,7 @@ public class EstacionamientoController {
   @GetMapping("/seleccionar-box/{id}")
   public String seleccionarBox(Model model, @PathVariable(name = "id") Long id) {
     model.addAttribute("box", id);
-    model.addAttribute("autos", automovilService.mostrarAutomoviles());
+    model.addAttribute("autos", automovilService.obtenerAutomoviles());
     return "seleccionar-box";
   }
 
@@ -56,7 +56,6 @@ public class EstacionamientoController {
   @PostMapping("/guardar-auto")
   public String guardarAutomovil(@ModelAttribute Automovil automovil) {
     automovilService.guardarAutomovil(automovil);
-    ;
     return "redirect:/";
   }
 

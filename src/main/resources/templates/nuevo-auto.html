@@ -10,7 +10,7 @@
 
 <body>
   <div class="container mt-4">
-    <h2 th:text="${automovil==null ? 'Agregar Nuevo Automóvil' : 'Editar Automovil'}"></h2>
+    <h2 th:text="${automovil.id==null ? 'Agregar Nuevo Automóvil' : 'Editar Automovil'}"></h2>
     <form action="/guardar-auto" th:object="${automovil}" method="post">
       <div th:if="${automovil.id==null}">
         <label>Patente:</label>
@@ -30,7 +30,8 @@
       <input type="number" name="duenio" th:field="*{duenio}" class="form-control" required>
       <input type="hidden" name="id" th:field="*{id}" required>
       <input type="hidden" name="estado" th:field="*{estado}" class="form-control" required>
-      <button type="submit" class="btn btn-success mt-3" th:text="${automovil==null ? 'Agregar' : 'Editar'}"></button>
+      <button type="submit" class="btn btn-success mt-3"
+        th:text="${automovil.id==null ? 'Agregar' : 'Editar'}"></button>
     </form>
   </div>
 </body>
