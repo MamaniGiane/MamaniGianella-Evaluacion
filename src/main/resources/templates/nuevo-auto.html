@@ -9,6 +9,8 @@
 </head>
 
 <body>
+  <div th:insert="~{/layouts/nav :: nav}"></div>
+
   <div class="container mt-4">
     <h2 th:text="${automovil.id==null ? 'Agregar Nuevo Automóvil' : 'Editar Automovil'}"></h2>
     <form action="/guardar-auto" th:object="${automovil}" method="post">
@@ -21,11 +23,17 @@
         <input type="text" name="patente" th:field="*{patente}" class="form-control" required readonly>
       </div>
       <label>Marca:</label>
-      <input type="text" name="marca" th:field="*{marca}" class="form-control" required>
+      <select th:field="*{marca}" class="form-control">
+        <option th:each="marca : ${marcas}" th:value="${marca}" th:text="${marca}"></option>
+      </select>
       <label>Modelo:</label>
-      <input type="text" name="modelo" th:field="*{modelo}" class="form-control" required>
+      <select th:field="*{modelo}" class="form-control">
+        <option th:each="modelo : ${modelos}" th:value="${modelo}" th:text="${modelo}"></option>
+      </select>
       <label>Color:</label>
-      <input type="text" name="color" th:field="*{color}" class="form-control" required>
+      <select th:field="*{color}" class="form-control">
+        <option th:each="color : ${colores}" th:value="${color}" th:text="${color}"></option>
+      </select>
       <label>DNI Dueño:</label>
       <input type="number" name="duenio" th:field="*{duenio}" class="form-control" required>
       <input type="hidden" name="id" th:field="*{id}" required>

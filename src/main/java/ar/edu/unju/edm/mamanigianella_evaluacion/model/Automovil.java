@@ -18,9 +18,21 @@ public class Automovil {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String patente;
-  private String marca;
+  private Marca marca;
   private String modelo;
   private String color;
   private String duenio;
   private Boolean estado;
+
+  public enum Marca {
+    Toyota, Ford, Fiat
+  }
+
+  public enum Color {
+    Rojo, Gris, Negro, Blanco, Azul
+  }
+
+  public enum Modelo {
+    Corolla, Fiesta, Cronos, Toro,
+  }
 }

@@ -50,6 +50,9 @@ public class EstacionamientoController {
   @GetMapping("/nuevo-auto")
   public String nuevoAutomovil(Model model) {
     model.addAttribute("automovil", new Automovil());
+    model.addAttribute("marcas", Automovil.Marca.values());
+    model.addAttribute("colores", Automovil.Color.values());
+    model.addAttribute("modelos", Automovil.Modelo.values());
     return "nuevo-auto";
   }
 
@@ -68,6 +71,9 @@ public class EstacionamientoController {
   @GetMapping("/editar-auto/{id}")
   public String editarBox(Model model, @PathVariable(name = "id") Long id) {
     model.addAttribute("automovil", automovilService.obtenerAutomovilPorId(id));
+    model.addAttribute("marcas", Automovil.Marca.values());
+    model.addAttribute("colores", Automovil.Color.values());
+    model.addAttribute("modelos", Automovil.Modelo.values());
     return "nuevo-auto";
   }
 
